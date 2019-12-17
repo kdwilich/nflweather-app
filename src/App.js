@@ -31,28 +31,42 @@ class App extends Component {
     gameDate,
     seasonType,
     gameId,
-    gameTimeLocal,
+    gameTimeEastern,
     homeTeamAbbr,
     visitorTeamAbbr,
     week
   }) => (
-    <div key={gameId}>
-      {seasonType === "REG" && week === 15 && (
-        <div>
-          {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at &nbsp;
-          {this.formatTime(gameTimeLocal)}
-          <br />
-          &nbsp;
+      <div key={gameId}>
+        {seasonType === "REG" && week === 15 && (
+          <div>
+            {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at {' '}
+            {this.formatTime(gameTimeEastern, 'central')}
+            <br />
+            &nbsp;
         </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
 
-  formatTime(time) {
+  formatTime(time, zone) {
     time = time.split(":");
     let hour = parseInt(time[0].substring(0, 2), 10);
     let timeOfDay;
     hour < 12 ? (timeOfDay = "AM") : (timeOfDay = "PM");
+    switch (zone) {
+      case 'central':
+        hour = hour - 1;
+        break;
+      case 'mountain':
+        hour = hour - 2;
+        break;
+      case 'pacific':
+        hour = hour - 3;
+        break;
+      default: //eastern
+        break;
+    }
+
     hour = ((hour + 11) % 12) + 1;
 
     return `${hour.toString()}:${time[1]} ${timeOfDay}`;
