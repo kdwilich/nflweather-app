@@ -30,21 +30,26 @@ class App extends Component {
       .catch(err => console.error(err));
   };
 
-  getForecast = _ => {
+  getForecast = ({ lat, lon }) => {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
     fetch(
-      "https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/42.3601,-71.0589"
+      `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${lat},${lon}`
     )
       .then(response => response.json())
-      .then(response => this.setState({ forecast: response }));
-  };
+      // .then(response => console.log(response))
+      .then(response => this.setState({ forecast: response }))
+      .catch(function (error) {
+        console.log('Request failed', error);
+      })
+  }
 
-  getCoordsFromState = ({ city, state }) => {
+  getCoords = ({ city, state }) => {
     fetch(
       `https://us1.locationiq.com/v1/search.php?key=f3bb1afca12686&q=${city}%20${state}&format=json`
     )
       .then(response => response.json())
       .then(response => this.setState({ coords: response }));
-    // return <div>{this.state.coords}</div>;
+    // return <div>{this.state.coords[0].lat}, {this.state.coords[0].lon}</div>;
     //error in return^
   };
 
@@ -57,17 +62,17 @@ class App extends Component {
     visitorTeamAbbr,
     week
   }) => (
-    <div key={gameId}>
-      {seasonType === "REG" && week === 15 && (
-        <div>
-          {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at{" "}
-          {this.formatTime(gameTimeEastern, "central")}
-          <br />
-          &nbsp;
+      <div key={gameId}>
+        {seasonType === "REG" && week === 15 && (
+          <div>
+            {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at{" "}
+            {this.formatTime(gameTimeEastern, "central")}
+            <br />
+            &nbsp;
         </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
 
   renderStadiumLocations = ({ siteId, siteCity, siteState }) => (
     <div key={siteId}>
@@ -76,7 +81,11 @@ class App extends Component {
           {siteCity}, {siteState}
         </span>
       )) || <span>{siteCity}</span>}
-      {this.getCoordsFromState({ siteCity, siteState })}
+      <button onClick={this.getCoords.bind(this, { siteCity, siteState })}>click</button>
+      {/* {this.state.coords.length > 0 && console.log(this.state.coords[0].lat, this.state.coords[0].lon)} */}
+      {/* {this.state.coords.map(x => <div>{x.lat}, {x.lon}</div>)} */}
+      {this.state.coords.length > 0 && <div>{this.state.coords[0].lat}, {this.state.coords[0].lon}</div>}
+      {/* {this.state.coords.length > 0 && this.getForecast(this.state.coords[0])} */}
       <br />
     </div>
   );
