@@ -2,15 +2,16 @@ import React, { Component } from "react";
 import Header from "./components/layout/Header";
 import Schedules from "./components/Schedules";
 import axios from "axios";
+import { Dropdown } from "react-bootstrap";
 import "./App.css";
 
 class App extends Component {
   state = {
-    schedules: []
+    schedules: [],
     // schedules: [
     //   {
     //     season: 2019,
-    //     seasonType: "PRE",
+    //     seasonType: "REG",
     //     week: 0,
     //     gameId: 2019080151,
     //     gameKey: 57835,
@@ -59,126 +60,159 @@ class App extends Component {
     //       roofType: "OUTDOOR"
     //     },
     //     networkChannel: "NBC"
+    //   },
+    //   {
+    //     season: 2019,
+    //     seasonType: "REG",
+    //     week: 1,
+    //     gameId: 2019080853,
+    //     gameKey: 57838,
+    //     gameDate: "08/08/2019",
+    //     gameTimeEastern: "19:00:00",
+    //     gameTimeLocal: "19:00:00",
+    //     isoTime: 1565305200000,
+    //     homeTeamId: "0610",
+    //     visitorTeamId: "2200",
+    //     homeTeamAbbr: "BUF",
+    //     visitorTeamAbbr: "IND",
+    //     homeDisplayName: "Buffalo Bills",
+    //     visitorDisplayName: "Indianapolis Colts",
+    //     homeNickname: "Bills",
+    //     visitorNickname: "Colts",
+    //     gameType: "PRE",
+    //     weekNameAbbr: "P1",
+    //     weekName: "Preseason Week 1",
+    //     visitorTeam: {
+    //       season: 2019,
+    //       teamId: "2200",
+    //       abbr: "IND",
+    //       cityState: "Indianapolis",
+    //       fullName: "Indianapolis Colts",
+    //       nick: "Colts",
+    //       teamType: "TEAM",
+    //       conferenceAbbr: "AFC",
+    //       divisionAbbr: "ACS"
+    //     },
+    //     homeTeam: {
+    //       season: 2019,
+    //       teamId: "0610",
+    //       abbr: "BUF",
+    //       cityState: "Buffalo",
+    //       fullName: "Buffalo Bills",
+    //       nick: "Bills",
+    //       teamType: "TEAM",
+    //       conferenceAbbr: "AFC",
+    //       divisionAbbr: "ACE"
+    //     },
+    //     site: {
+    //       siteId: 3770,
+    //       siteCity: "Orchard Park",
+    //       siteFullname: "New Era Field",
+    //       siteState: "NY",
+    //       roofType: "OUTDOOR"
+    //     }
+    //   },
+    //   {
+    //     season: 2019,
+    //     seasonType: "REG",
+    //     week: 1,
+    //     gameId: 2019080860,
+    //     gameKey: 57846,
+    //     gameDate: "08/08/2019",
+    //     gameTimeEastern: "19:00:00",
+    //     gameTimeLocal: "19:00:00",
+    //     isoTime: 1565305200000,
+    //     homeTeamId: "3410",
+    //     visitorTeamId: "3430",
+    //     homeTeamAbbr: "NYG",
+    //     visitorTeamAbbr: "NYJ",
+    //     homeDisplayName: "New York Giants",
+    //     visitorDisplayName: "New York Jets",
+    //     homeNickname: "Giants",
+    //     visitorNickname: "Jets",
+    //     gameType: "PRE",
+    //     weekNameAbbr: "P1",
+    //     weekName: "Preseason Week 1",
+    //     visitorTeam: {
+    //       season: 2019,
+    //       teamId: "3430",
+    //       abbr: "NYJ",
+    //       cityState: "New York Jets",
+    //       fullName: "New York Jets",
+    //       nick: "Jets",
+    //       teamType: "TEAM",
+    //       conferenceAbbr: "AFC",
+    //       divisionAbbr: "ACE"
+    //     },
+    //     homeTeam: {
+    //       season: 2019,
+    //       teamId: "3410",
+    //       abbr: "NYG",
+    //       cityState: "New York Giants",
+    //       fullName: "New York Giants",
+    //       nick: "Giants",
+    //       teamType: "TEAM",
+    //       conferenceAbbr: "NFC",
+    //       divisionAbbr: "NCE"
+    //     },
+    //     site: {
+    //       siteId: 3757,
+    //       siteCity: "East Rutherford",
+    //       siteFullname: "MetLife Stadium",
+    //       siteState: "NJ",
+    //       roofType: "OUTDOOR"
+    //     },
+    //     networkChannel: "NFL NETWORK"
     //   }
-    //   // {
-    //   //   season: 2019,
-    //   //   seasonType: "PRE",
-    //   //   week: 1,
-    //   //   gameId: 2019080853,
-    //   //   gameKey: 57838,
-    //   //   gameDate: "08/08/2019",
-    //   //   gameTimeEastern: "19:00:00",
-    //   //   gameTimeLocal: "19:00:00",
-    //   //   isoTime: 1565305200000,
-    //   //   homeTeamId: "0610",
-    //   //   visitorTeamId: "2200",
-    //   //   homeTeamAbbr: "BUF",
-    //   //   visitorTeamAbbr: "IND",
-    //   //   homeDisplayName: "Buffalo Bills",
-    //   //   visitorDisplayName: "Indianapolis Colts",
-    //   //   homeNickname: "Bills",
-    //   //   visitorNickname: "Colts",
-    //   //   gameType: "PRE",
-    //   //   weekNameAbbr: "P1",
-    //   //   weekName: "Preseason Week 1",
-    //   //   visitorTeam: {
-    //   //     season: 2019,
-    //   //     teamId: "2200",
-    //   //     abbr: "IND",
-    //   //     cityState: "Indianapolis",
-    //   //     fullName: "Indianapolis Colts",
-    //   //     nick: "Colts",
-    //   //     teamType: "TEAM",
-    //   //     conferenceAbbr: "AFC",
-    //   //     divisionAbbr: "ACS"
-    //   //   },
-    //   //   homeTeam: {
-    //   //     season: 2019,
-    //   //     teamId: "0610",
-    //   //     abbr: "BUF",
-    //   //     cityState: "Buffalo",
-    //   //     fullName: "Buffalo Bills",
-    //   //     nick: "Bills",
-    //   //     teamType: "TEAM",
-    //   //     conferenceAbbr: "AFC",
-    //   //     divisionAbbr: "ACE"
-    //   //   },
-    //   //   site: {
-    //   //     siteId: 3770,
-    //   //     siteCity: "Orchard Park",
-    //   //     siteFullname: "New Era Field",
-    //   //     siteState: "NY",
-    //   //     roofType: "OUTDOOR"
-    //   //   }
-    //   // },
-    //   // {
-    //   //   season: 2019,
-    //   //   seasonType: "PRE",
-    //   //   week: 1,
-    //   //   gameId: 2019080860,
-    //   //   gameKey: 57846,
-    //   //   gameDate: "08/08/2019",
-    //   //   gameTimeEastern: "19:00:00",
-    //   //   gameTimeLocal: "19:00:00",
-    //   //   isoTime: 1565305200000,
-    //   //   homeTeamId: "3410",
-    //   //   visitorTeamId: "3430",
-    //   //   homeTeamAbbr: "NYG",
-    //   //   visitorTeamAbbr: "NYJ",
-    //   //   homeDisplayName: "New York Giants",
-    //   //   visitorDisplayName: "New York Jets",
-    //   //   homeNickname: "Giants",
-    //   //   visitorNickname: "Jets",
-    //   //   gameType: "PRE",
-    //   //   weekNameAbbr: "P1",
-    //   //   weekName: "Preseason Week 1",
-    //   //   visitorTeam: {
-    //   //     season: 2019,
-    //   //     teamId: "3430",
-    //   //     abbr: "NYJ",
-    //   //     cityState: "New York Jets",
-    //   //     fullName: "New York Jets",
-    //   //     nick: "Jets",
-    //   //     teamType: "TEAM",
-    //   //     conferenceAbbr: "AFC",
-    //   //     divisionAbbr: "ACE"
-    //   //   },
-    //   //   homeTeam: {
-    //   //     season: 2019,
-    //   //     teamId: "3410",
-    //   //     abbr: "NYG",
-    //   //     cityState: "New York Giants",
-    //   //     fullName: "New York Giants",
-    //   //     nick: "Giants",
-    //   //     teamType: "TEAM",
-    //   //     conferenceAbbr: "NFC",
-    //   //     divisionAbbr: "NCE"
-    //   //   },
-    //   //   site: {
-    //   //     siteId: 3757,
-    //   //     siteCity: "East Rutherford",
-    //   //     siteFullname: "MetLife Stadium",
-    //   //     siteState: "NJ",
-    //   //     roofType: "OUTDOOR"
-    //   //   },
-    //   //   networkChannel: "NFL NETWORK"
-    //   // }
-    // ]
+    // ],
+    possibleWeeks: [
+      "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"
+    ],
+    selectedWeek: "0", //make this the current week
+    scheduleByWeek: []
   };
 
   componentDidMount() {
+    //set selected week to current week
     axios
       .get("https://feeds.nfl.com/feeds-rs/schedules.json")
       .then(response =>
         this.setState({ schedules: response.data.gameSchedules })
       )
       .catch(err => console.error(err));
+    this.weekSelect(this.state.selectedWeek)
   }
+
+  weekSelect = (week) => {
+    this.setState({
+      selectedWeek: week,
+      scheduleByWeek: [...this.state.schedules.filter(sched => sched.week.toString() === week)]
+    })
+  }
+
 
   render() {
     return (
-      <div className="App">
-        <Schedules schedules={this.state.schedules} />
+      <div>
+        <Dropdown>
+          <Dropdown.Toggle variant="secondary" id="dropdown-week">
+            Week {this.state.selectedWeek}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {this.state.possibleWeeks.map(
+              week => (
+                <Dropdown.Item
+                  onSelect={this.weekSelect}
+                  eventKey={week} key={week}
+                >
+                  {week}
+                </Dropdown.Item>
+              )
+            )}
+          </Dropdown.Menu>
+        </Dropdown>
+        <Schedules schedules={this.state.scheduleByWeek} />
       </div>
     );
   }

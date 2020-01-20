@@ -19,17 +19,13 @@ export class Game extends Component {
     const { siteCity, siteState } = this.props.game.site;
     return (
       <div>
-        {seasonType === "REG" && week === 15 && (
-          <div>
-            {homeDisplayName} vs {visitorDisplayName} on {gameDate} at{" "}
-            {this.formatTime(gameTimeEastern, "central")}
-            <Forecast location={{ siteCity, siteState }} />
-          </div>
-        )}
+        {homeDisplayName} vs {visitorDisplayName} on {gameDate} at{" "}
+        {this.formatTime(gameTimeEastern, "central")}
+        {/* <Forecast location={{ siteCity, siteState }} /> */}
       </div>
     );
   }
-
+  b
   formatTime(time, zone) {
     time = time.split(":");
     let hour = parseInt(time[0].substring(0, 2), 10);
