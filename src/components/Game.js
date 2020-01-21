@@ -19,9 +19,11 @@ export class Game extends Component {
     return (
       <Container>
         <Row>
-          <Col>
-            {homeDisplayName} vs {visitorDisplayName}
+          <Col style={{ textAlign: "right" }}>{homeDisplayName}</Col>
+          <Col md={1} style={{ textAlign: "center" }}>
+            VS
           </Col>
+          <Col style={{ textAlign: "left" }}>{visitorDisplayName}</Col>
           <Col style={{ textAlign: "right" }}>
             {this.formatTime(gameTimeEastern, "central")}
           </Col>
