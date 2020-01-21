@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Header from "./components/layout/Header";
 import Schedules from "./components/Schedules";
 import axios from "axios";
 import { Dropdown } from "react-bootstrap";
@@ -195,6 +194,7 @@ class App extends Component {
       .then(response =>
         this.setState({ schedules: response.data.gameSchedules })
       )
+      .then(() => this.weekSelect(this.state.selectedWeek))
       .catch(err => console.error(err));
   }
 
