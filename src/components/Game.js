@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Forecast from "./Forecast";
+import { Row, Container, Col } from "react-bootstrap";
+// import Forecast from "./Forecast";
 
 export class Game extends Component {
   state = {
@@ -12,20 +13,24 @@ export class Game extends Component {
       homeDisplayName,
       visitorDisplayName,
       gameTimeEastern,
-      seasonType,
-      week,
       gameDate
     } = this.props.game;
-    const { siteCity, siteState } = this.props.game.site;
+    // const { siteCity, siteState } = this.props.game.site;
     return (
-      <div>
-        {homeDisplayName} vs {visitorDisplayName} on {gameDate} at{" "}
-        {this.formatTime(gameTimeEastern, "central")}
-        {/* <Forecast location={{ siteCity, siteState }} /> */}
-      </div>
+      <Container>
+        <Row>
+          <Col>
+            {homeDisplayName} vs {visitorDisplayName}
+          </Col>
+          <Col style={{ textAlign: "right" }}>
+            {this.formatTime(gameTimeEastern, "central")}
+          </Col>
+          {/* <Forecast location={{ siteCity, siteState }} /> */}
+        </Row>
+      </Container>
     );
   }
-  b
+
   formatTime(time, zone) {
     time = time.split(":");
     let hour = parseInt(time[0].substring(0, 2), 10);

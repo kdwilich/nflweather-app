@@ -8,13 +8,17 @@ export class Schedules extends Component {
   };
 
   render() {
-    const { schedules, selectedWeek } = this.props
+    const { schedules } = this.props;
     return (
       <div>
-        {schedules.map(scheduledGame => (
-          // <div>{scheduledGame.homeDisplayName}</div>
-          <Game key={scheduledGame.gameKey} game={scheduledGame} />
-        ))}
+        {schedules.map(scheduledGame => {
+          return (
+            <div>
+              <div>{scheduledGame.gameDate}</div>
+              <Game key={scheduledGame.gameKey} game={scheduledGame} />
+            </div>
+          );
+        })}
       </div>
     );
   }

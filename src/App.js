@@ -166,9 +166,25 @@ class App extends Component {
     //   }
     // ],
     possibleWeeks: [
-      "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17"
     ],
-    selectedWeek: "0", //make this the current week
+    selectedWeek: "1", //make this the current week
     scheduleByWeek: []
   };
 
@@ -180,16 +196,18 @@ class App extends Component {
         this.setState({ schedules: response.data.gameSchedules })
       )
       .catch(err => console.error(err));
-    this.weekSelect(this.state.selectedWeek)
   }
 
-  weekSelect = (week) => {
+  weekSelect = week => {
     this.setState({
       selectedWeek: week,
-      scheduleByWeek: [...this.state.schedules.filter(sched => sched.week.toString() === week)]
-    })
-  }
-
+      scheduleByWeek: [
+        ...this.state.schedules.filter(
+          sched => sched.week.toString() === week && sched.seasonType === "REG"
+        )
+      ]
+    });
+  };
 
   render() {
     return (
@@ -200,16 +218,15 @@ class App extends Component {
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
-            {this.state.possibleWeeks.map(
-              week => (
-                <Dropdown.Item
-                  onSelect={this.weekSelect}
-                  eventKey={week} key={week}
-                >
-                  {week}
-                </Dropdown.Item>
-              )
-            )}
+            {this.state.possibleWeeks.map(week => (
+              <Dropdown.Item
+                onSelect={this.weekSelect}
+                eventKey={week}
+                key={week}
+              >
+                {week}
+              </Dropdown.Item>
+            ))}
           </Dropdown.Menu>
         </Dropdown>
         <Schedules schedules={this.state.scheduleByWeek} />
