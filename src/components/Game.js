@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Row, Container, Col } from "react-bootstrap";
 // import Forecast from "./Forecast";
 
 export class Game extends Component {
@@ -17,19 +16,15 @@ export class Game extends Component {
     } = this.props.game;
     // const { siteCity, siteState } = this.props.game.site;
     return (
-      <Container>
-        <Row>
-          <Col style={{ textAlign: "right" }}>{homeDisplayName}</Col>
-          <Col md={1} style={{ textAlign: "center" }}>
-            VS
-          </Col>
-          <Col style={{ textAlign: "left" }}>{visitorDisplayName}</Col>
-          <Col style={{ textAlign: "right" }}>
-            {this.formatTime(gameTimeEastern, "central")}
-          </Col>
-          {/* <Forecast location={{ siteCity, siteState }} /> */}
-        </Row>
-      </Container>
+      <tr>
+        <td style={{ textAlign: "right" }}>{homeDisplayName}</td>
+        <td style={{ textAlign: "center" }}>VS</td>
+        <td style={{ textAlign: "left" }}>{visitorDisplayName}</td>
+        <td style={{ textAlign: "right" }}>
+          {this.formatTime(gameTimeEastern, "central")}
+        </td>
+        {/* <Forecast /> */}
+      </tr>
     );
   }
 

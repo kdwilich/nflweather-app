@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Table, Card } from "react-bootstrap";
 import Game from "./Game";
 
 export class Schedules extends Component {
@@ -23,18 +24,22 @@ export class Schedules extends Component {
     schedules.sort(this.compare);
 
     return (
-      <div>
-        {schedules.map(scheduledGame => {
-          return (
-            <div key={scheduledGame.gameKey}>
-              {scheduledGame.gameId % 100 === 0 && (
-                <div>{scheduledGame.gameDate}</div>
-              )}
-              <Game game={scheduledGame} />
-            </div>
-          );
-        })}
-      </div>
+      <Card style={{ width: "100%" }}>
+        <Table hover>
+          <tbody>
+            {schedules.map(scheduledGame => {
+              return (
+                <React.Fragment key={scheduledGame.gameKey}>
+                  {/* {scheduledGame.gameId % 100 === 0 && (
+                  <div>{scheduledGame.gameDate}</div>
+                )} */}
+                  <Game game={scheduledGame} />
+                </React.Fragment>
+              );
+            })}
+          </tbody>
+        </Table>
+      </Card>
     );
   }
 }

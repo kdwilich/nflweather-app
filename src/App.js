@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Schedules from "./components/Schedules";
 import axios from "axios";
 import { Dropdown } from "react-bootstrap";
+import { Row, Container, Col } from "react-bootstrap";
 import "./App.css";
 
 class App extends Component {
@@ -211,7 +212,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <Container>
         <Dropdown>
           <Dropdown.Toggle variant="secondary" id="dropdown-week">
             Week {this.state.selectedWeek}
@@ -229,8 +230,12 @@ class App extends Component {
             ))}
           </Dropdown.Menu>
         </Dropdown>
-        <Schedules schedules={this.state.scheduleByWeek} />
-      </div>
+        <Row className="justify-content-md-center">
+          <Col>
+            <Schedules schedules={this.state.scheduleByWeek} />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }
