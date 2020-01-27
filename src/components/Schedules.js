@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Card } from "react-bootstrap";
+import { Table, Card, Accordion } from "react-bootstrap";
 import Game from "./Game";
 
 export class Schedules extends Component {
@@ -24,22 +24,28 @@ export class Schedules extends Component {
     schedules.sort(this.compare);
 
     return (
-      <Card style={{ width: "100%" }}>
-        <Table hover>
+      <div style={{ width: "100%" }}>
+        <table style={{ width: "100%" }}>
           <tbody>
             {schedules.map(scheduledGame => {
               return (
-                <React.Fragment key={scheduledGame.gameKey}>
-                  {/* {scheduledGame.gameId % 100 === 0 && (
-                  <div>{scheduledGame.gameDate}</div>
-                )} */}
-                  <Game game={scheduledGame} />
-                </React.Fragment>
+                <React.Fragment>
+                  {scheduledGame.gameId % 100 === 0 && (
+                    <div>{scheduledGame.gameDate}</div>
+                  )}
+                  <Accordion defaultActiveKey="1">
+                    <Accordion.Toggle as={Table} eventKey={scheduledGame.gameKey} key={scheduledGame.gameKey}>
+                      <Game game={scheduledGame} />
+                    </Accordion.Toggle>
+                    <Accordion.Collapse eventKey={scheduledGame.gameKey}>
+                      <Card.Body>Hello! I'm the body</Card.Body>
+                    </Accordion.Collapse>
+                  </Accordion></React.Fragment>
               );
             })}
           </tbody>
-        </Table>
-      </Card>
+        </table>
+      </div>
     );
   }
 }

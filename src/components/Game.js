@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-// import Forecast from "./Forecast";
+import Forecast from "./Forecast";
 
 export class Game extends Component {
   state = {

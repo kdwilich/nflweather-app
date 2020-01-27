@@ -34,12 +34,16 @@ export class Forecast extends Component {
   };
 
   componentDidMount() {
-    const { siteCity, siteState } = this.props.location;
+    let siteCity = 1234;
+    let siteState = 5432;
+    // const { siteCity, siteState } = this.props.location;
     this.displayWeather({ siteCity, siteState });
   }
 
   render() {
-    const { siteCity, siteState } = this.props.location;
+    // const { siteCity, siteState } = this.props.location;
+    let siteCity = 1234;
+    let siteState = 5432;
     let temp = this.state.forecast.currently.temperature;
     console.log(this.state.forecast);
     return (
