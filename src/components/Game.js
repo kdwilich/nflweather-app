@@ -17,10 +17,12 @@ export class Game extends Component {
     // const { siteCity, siteState } = this.props.game.site;
     return (
       <tr>
-        <td style={{ textAlign: "right" }}>{homeDisplayName}</td>
-        <td style={{ textAlign: "center" }}>VS</td>
-        <td style={{ textAlign: "left" }}>{visitorDisplayName}</td>
-        <td style={{ textAlign: "right" }}>
+        <td style={{ width: "35%", textAlign: "right" }}>{homeDisplayName}</td>
+        <td style={{ width: "10%", textAlign: "center" }}>VS</td>
+        <td style={{ width: "35%", textAlign: "left" }}>
+          {visitorDisplayName}
+        </td>
+        <td style={{ width: "10%", textAlign: "right" }}>
           {this.formatTime(gameTimeEastern, "central")}
         </td>
         {/* <Forecast /> */}
