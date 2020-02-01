@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import Forecast from "./Forecast";
+import PropTypes from "prop-types";
 
 export class Game extends Component {
   state = {
@@ -16,17 +16,21 @@ export class Game extends Component {
     } = this.props.game;
     // const { siteCity, siteState } = this.props.game.site;
     return (
-      <tr>
-        <td style={{ width: "35%", textAlign: "right" }}>{homeDisplayName}</td>
-        <td style={{ width: "10%", textAlign: "center" }}>VS</td>
-        <td style={{ width: "35%", textAlign: "left" }}>
-          {visitorDisplayName}
-        </td>
-        <td style={{ width: "10%", textAlign: "right" }}>
-          {this.formatTime(gameTimeEastern, "central")}
-        </td>
-        {/* <Forecast /> */}
-      </tr>
+      <tbody>
+        <tr>
+          <td style={{ width: "10%", textAlign: "right" }}>
+            {this.formatTime(gameTimeEastern, "central")}
+          </td>
+          <td style={{ width: "25%", textAlign: "right" }}>
+            {homeDisplayName}
+          </td>
+          <td style={{ width: "10%", textAlign: "center" }}>VS</td>
+          <td style={{ width: "25%", textAlign: "left" }}>
+            {visitorDisplayName}
+          </td>
+          <Forecast location={this.props.game} />
+        </tr>
+      </tbody>
     );
   }
 

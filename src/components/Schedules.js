@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Table, Card, Accordion } from "react-bootstrap";
+import Forecast from "./Forecast";
 import Game from "./Game";
 
 export class Schedules extends Component {
@@ -20,6 +21,7 @@ export class Schedules extends Component {
 
   render() {
     const { schedules } = this.props;
+    // this.props.schedules[0]
 
     schedules.sort(this.compare);
 
@@ -31,16 +33,34 @@ export class Schedules extends Component {
               return (
                 <React.Fragment>
                   {scheduledGame.gameId % 100 === 0 && (
-                    <div>{scheduledGame.gameDate}</div>
+                    <tr>
+                      <td>{scheduledGame.gameDate}</td>
+                    </tr>
                   )}
-                  <Accordion defaultActiveKey="1">
-                    <Accordion.Toggle as={Table} eventKey={scheduledGame.gameKey} key={scheduledGame.gameKey}>
-                      <Game game={scheduledGame} />
-                    </Accordion.Toggle>
-                    <Accordion.Collapse eventKey={scheduledGame.gameKey}>
-                      <Card.Body>Hello! I'm the body</Card.Body>
-                    </Accordion.Collapse>
-                  </Accordion></React.Fragment>
+                  <tr>
+                    <td>
+                      <Accordion
+                        defaultActiveKey="1"
+                        key={scheduledGame.gameKey}
+                      >
+                        <Accordion.Toggle
+                          as={Table}
+                          eventKey={scheduledGame.gameKey}
+                          onClick={() => {
+                            console.log("click", scheduledGame.gameKey);
+                          }}
+                        >
+                          <Game game={scheduledGame} />
+                        </Accordion.Toggle>
+                        <Accordion.Collapse eventKey={scheduledGame.gameKey}>
+                          <Card.Body
+                            style={{ backgroundColor: "#999" }}
+                          ></Card.Body>
+                        </Accordion.Collapse>
+                      </Accordion>
+                    </td>
+                  </tr>
+                </React.Fragment>
               );
             })}
           </tbody>
