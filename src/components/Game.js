@@ -1,36 +1,71 @@
 import React, { Component } from "react";
 import Forecast from "./Forecast";
 import PropTypes from "prop-types";
+import { Table, Card, Accordion } from "react-bootstrap";
 
 export class Game extends Component {
   state = {
-    game: []
+    game: [],
+    forecast: []
   };
+
+  setForecast = (forecast) => {
+    this.setState({ forecast: forecast.current });
+  }
 
   render() {
     const {
       homeDisplayName,
       visitorDisplayName,
       gameTimeEastern,
-      gameDate
+      gameDate,
+      gameKey
     } = this.props.game;
+    // const { visibility, windSpeed } = this.state.forecast;
     // const { siteCity, siteState } = this.props.game.site;
     return (
-      <tbody>
+      <React.Fragment>
         <tr>
-          <td style={{ width: "10%", textAlign: "right" }}>
-            {this.formatTime(gameTimeEastern, "central")}
+          <td>
+            <Accordion
+              defaultActiveKey="1"
+              key={gameKey}
+            >
+              <Accordion.Toggle
+                as={Table}
+                style={{ margin: 0 }}
+                eventKey={gameKey}
+              >
+                <tr>
+                  <td style={{ width: "10%", textAlign: "right" }}>
+                    {this.formatTime(gameTimeEastern, "central")}
+                  </td>
+                  <td style={{ width: "25%", textAlign: "right" }}>
+                    {homeDisplayName}
+                  </td>
+                  <td style={{ width: "10%", textAlign: "center" }}>VS</td>
+                  <td style={{ width: "25%", textAlign: "left" }}>
+                    {visitorDisplayName}
+                  </td>
+                  <Forecast location={this.props.game} setForecast={this.setForecast} />
+                </tr>
+              </Accordion.Toggle>
+              <Accordion.Collapse eventKey={gameKey}>
+                <Table>
+                  <tr style={{ backgroundColor: "#C9C9C9" }}>
+                    {/* <td>
+                      {visibility}
+                    </td>
+                    <td>
+                      {windSpeed}
+                    </td> */}
+                  </tr>
+                </Table>
+              </Accordion.Collapse>
+            </Accordion>
           </td>
-          <td style={{ width: "25%", textAlign: "right" }}>
-            {homeDisplayName}
-          </td>
-          <td style={{ width: "10%", textAlign: "center" }}>VS</td>
-          <td style={{ width: "25%", textAlign: "left" }}>
-            {visitorDisplayName}
-          </td>
-          <Forecast location={this.props.game} />
         </tr>
-      </tbody>
+      </React.Fragment>
     );
   }
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Table, Card, Accordion } from "react-bootstrap";
 import Forecast from "./Forecast";
 import Game from "./Game";
 
@@ -26,46 +25,22 @@ export class Schedules extends Component {
     schedules.sort(this.compare);
 
     return (
-      <div style={{ width: "100%" }}>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            {schedules.map(scheduledGame => {
-              return (
-                <React.Fragment>
-                  {scheduledGame.gameId % 100 === 0 && (
-                    <tr>
-                      <td>{scheduledGame.gameDate}</td>
-                    </tr>
-                  )}
+      <table style={{ width: "100%" }}>
+        <tbody>
+          {schedules.map(scheduledGame => {
+            return (
+              <React.Fragment key={scheduledGame.gameKey}>
+                {scheduledGame.gameId % 100 === 0 && (
                   <tr>
-                    <td>
-                      <Accordion
-                        defaultActiveKey="1"
-                        key={scheduledGame.gameKey}
-                      >
-                        <Accordion.Toggle
-                          as={Table}
-                          eventKey={scheduledGame.gameKey}
-                          onClick={() => {
-                            console.log("click", scheduledGame.gameKey);
-                          }}
-                        >
-                          <Game game={scheduledGame} />
-                        </Accordion.Toggle>
-                        <Accordion.Collapse eventKey={scheduledGame.gameKey}>
-                          <Card.Body
-                            style={{ backgroundColor: "#999" }}
-                          ></Card.Body>
-                        </Accordion.Collapse>
-                      </Accordion>
-                    </td>
+                    <td>{scheduledGame.gameDate}</td>
                   </tr>
-                </React.Fragment>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                )}
+                <Game game={scheduledGame} key={scheduledGame.gameKey} />
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
     );
   }
 }

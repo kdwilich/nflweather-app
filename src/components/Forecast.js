@@ -44,7 +44,10 @@ export class Forecast extends Component {
       .get(
         `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
       )
-      .then(res => this.setState({ forecast: res.data }))
+      .then(res => {
+        this.setState({ forecast: res.data });
+        this.props.setForecast(this.state.forecast);
+      })
       .catch(err => console.log(err));
   };
 
