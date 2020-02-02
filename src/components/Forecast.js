@@ -39,10 +39,10 @@ export class Forecast extends Component {
 
   // set up my own cors-anywhere heroku to not get throttled
   getForecast = ({ latitude, longitude }) => {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const proxyurl = "https://cors-anywhere-kw.herokuapp.com/";
     axios
       .get(
-        `https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
+        `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
       )
       .then(res => {
         this.setState({ forecast: res.data });
@@ -69,7 +69,6 @@ export class Forecast extends Component {
   render() {
     let { temperature, summary, icon } = this.state.forecast.currently;
     icon = icon.replace(new RegExp("-", "g"), "_");
-    console.log(icon);
     return (
       <React.Fragment>
         <td style={{ width: "15%", textAlign: "right" }}>{temperature}°F</td>
