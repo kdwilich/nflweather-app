@@ -53,9 +53,11 @@ export class Schedules extends Component {
                           <Game game={scheduledGame} />
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey={scheduledGame.gameKey}>
-                          <Card.Body
-                            style={{ backgroundColor: "#999" }}
-                          ></Card.Body>
+                          <Card.Body style={{ backgroundColor: "#d9d9d9" }} >
+                            Playing at: {scheduledGame.site.siteFullname} in {scheduledGame.site.siteCity}, {scheduledGame.site.siteState} <br></br>
+                            Broadcasted By: {scheduledGame.networkChannel} <br></br>
+
+                          </Card.Body>
                         </Accordion.Collapse>
                       </Accordion>
                     </td>

@@ -61,6 +61,8 @@ export class Forecast extends Component {
     return parseInt((temp - 273.15) * 10) / 10 + "°C";
   }
 
+
+
   render() {
     let { temperature, summary, icon } = this.state.forecast.currently;
     icon = icon.replace(new RegExp("-", "g"), "_");
@@ -68,7 +70,7 @@ export class Forecast extends Component {
     return (
       <React.Fragment>
         <td style={{ width: "15%", textAlign: "left" }}>{summary}</td>
-        <td style={{ width: "15%", textAlign: "right" }}>{temperature}°F</td>
+        <td style={{ width: "15%", textAlign: "right" }}>{Math.round(temperature)}°F</td>
         <td>
           <ReactAnimatedWeather
             icon={icon.toUpperCase()}
