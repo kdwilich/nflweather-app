@@ -42,11 +42,11 @@ export class Forecast extends Component {
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     axios
       .get(
-        `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
+        `https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
       )
       .then(res => {
         this.setState({ forecast: res.data });
-        this.props.setForecast(this.state.forecast);
+        this.props.setForecast(res.data);
       })
       .catch(err => console.log(err));
   };
@@ -72,9 +72,8 @@ export class Forecast extends Component {
     console.log(icon);
     return (
       <React.Fragment>
-        <td style={{ width: "15%", textAlign: "left" }}>{summary}</td>
-        <td style={{ width: "15%", textAlign: "right" }}>{Math.round(temperature)}°F</td>
-        <td>
+        <td style={{ width: "15%", textAlign: "right" }}>{temperature}°F</td>
+        <td style={{ width: "5%", textAlign: "left" }}>
           <ReactAnimatedWeather
             icon={icon.toUpperCase()}
             color={"#212529"}
@@ -82,6 +81,7 @@ export class Forecast extends Component {
             animate={true}
           />
         </td>
+        <td style={{ width: "15%", textAlign: "left" }}>{summary}</td>
       </React.Fragment>
     );
   }
