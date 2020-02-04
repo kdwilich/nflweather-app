@@ -226,7 +226,7 @@ class App extends Component {
 
   getSchedule = () => {
     axios
-      .get(`http://www.nfl.com/feeds-rs/schedules/${this.state.selectedSeason}.json`)
+      .get(`https://www.nfl.com/feeds-rs/schedules/${this.state.selectedSeason}.json`)
       .then(response =>
         this.setState({ schedules: response.data.gameSchedules })
       )
