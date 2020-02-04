@@ -217,7 +217,12 @@ const SITES = [
     city: "Mexico City",
     longitude: "-99.1333416",
     latitude: "19.4326009"
-  }
+  },
+  {
+    city: "Orlando",
+    longitude: "-81.3790304",
+    latitude: "28.5421109"
+  },
 ];
 
 export default SITES;

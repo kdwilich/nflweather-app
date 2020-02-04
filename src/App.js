@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Schedules from "./components/Schedules";
 import axios from "axios";
-import { Dropdown } from "react-bootstrap";
-import { Row, Container, Col } from "react-bootstrap";
+import { Dropdown, DropdownButton, ButtonToolbar } from "react-bootstrap";
+import { Row, Container, Col, Table } from "react-bootstrap";
 import "./App.css";
 
 class App extends Component {
@@ -166,37 +166,67 @@ class App extends Component {
     //   }
     // ],
     possibleWeeks: [
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
-      "19",
-      "20",
-      "21",
-      "22"
+      "Hall of Fame Week",
+      "Preseason Week 1",
+      "Preseason Week 2",
+      "Preseason Week 3",
+      "Preseason Week 4",
+      "Week 1",
+      "Week 2",
+      "Week 3",
+      "Week 4",
+      "Week 5",
+      "Week 6",
+      "Week 7",
+      "Week 8",
+      "Week 9",
+      "Week 10",
+      "Week 11",
+      "Week 12",
+      "Week 13",
+      "Week 14",
+      "Week 15",
+      "Week 16",
+      "Week 17",
+      "Wild Card Weekend",
+      "Divisional Playoffs",
+      "Conference Championships",
+      "Pro Bowl",
+      "Super Bowl",
     ],
-    selectedWeek: "1", //make this the current week
+    possibleSeasons: [
+      "2019",
+      "2018",
+      "2017",
+      "2016",
+      "2015",
+      "2014",
+      "2013",
+      "2012",
+      "2011",
+      "2010",
+      "2009",
+      "2008",
+      "2007",
+      "2006",
+      "2005",
+      "2004",
+      "2003",
+      "2002",
+    ],
+    selectedWeek: "Week 1", //make this the current week
+    selectedSeason: "2019",
     scheduleByWeek: []
   };
 
   componentDidMount() {
     //set selected week to current week
+    this.getSchedule();
+  }
+
+  getSchedule = () => {
     axios
-      .get("https://feeds.nfl.com/feeds-rs/schedules.json")
+      .get(`http://www.nfl.com/feeds-rs/schedules/${this.state.selectedSeason}.json`)
       .then(response =>
         this.setState({ schedules: response.data.gameSchedules })
       )
@@ -204,40 +234,75 @@ class App extends Component {
       .catch(err => console.error(err));
   }
 
-  weekSelect = week => {
+  //TODO: set to current week based on current date
+  // parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0))
+  weekSelect = selectedWeek => {
     this.setState({
-      selectedWeek: week,
+      selectedWeek: selectedWeek,
       scheduleByWeek: [
         ...this.state.schedules.filter(
-          sched => sched.week.toString() === week
+          game => game.weekName === selectedWeek
         )
       ]
     });
   };
 
+  seasonSelect = selectedSeason => {
+    this.setState({
+      selectedSeason: selectedSeason
+    });
+    this.getSchedule()
+  };
+
   render() {
     return (
       <Container>
-        <Dropdown>
-          <Dropdown.Toggle variant="secondary" id="dropdown-week">
-            Week {this.state.selectedWeek}
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu style={{
-            height: "300px",
-            overflowY: 'scroll'
-          }}>
-            {this.state.possibleWeeks.map(week => (
-              <Dropdown.Item
-                onSelect={this.weekSelect}
-                eventKey={week}
-                key={week}
-              >
-                {week}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
+        <ButtonToolbar>
+          <DropdownButton
+            title={this.state.selectedSeason}
+            variant="primary"
+            id="dropdown-season"
+            style={{ padding: "15px" }}
+          >
+            <div
+              style={{
+                height: "300px",
+                overflowY: "scroll"
+              }}>
+              {this.state.possibleSeasons.map(season => (
+                <Dropdown.Item
+                  onSelect={this.seasonSelect}
+                  eventKey={season}
+                  key={season}
+                >
+                  {season}
+                </Dropdown.Item>
+              ))}
+            </div>
+          </DropdownButton>
+          <DropdownButton
+            title={this.state.selectedWeek}
+            variant="primary"
+            id="dropdown-week"
+            style={{ padding: "15px" }}
+          >
+            <div
+              style={{
+                height: "300px",
+                overflowY: "scroll"
+              }}>
+              {this.state.possibleWeeks.map(week => (
+                <Dropdown.Item
+                  onSelect={this.weekSelect}
+                  eventKey={week}
+                  key={week}
+                >
+                  {week}
+                </Dropdown.Item>
+              ))}
+            </div>
+          </DropdownButton>
+        </ButtonToolbar>
         <Row className="justify-content-md-center">
           <Col>
             <Schedules schedules={this.state.scheduleByWeek} />

@@ -44,16 +44,25 @@ export class Forecast extends Component {
       .catch(err => console.log(err));
   };
 
-  toCelsius(temp) {
-    return parseInt((temp - 273.15) * 10) / 10 + "°C";
-  }
+  // convert = (temp) => {
+  //   this.setState(prevState => ({
+  //     forecast: {
+  //       ...prevState.forecast,
+  //       [prevState.forecast[0].currently.temperature]: (temp - 32) * 5 / 9
+  //     },
+  //   }));
+  // }
 
   render() {
     let { temperature, summary, icon } = this.state.forecast.currently;
     icon = icon.replace(new RegExp("-", "g"), "_");
     return (
       <React.Fragment>
-        <td style={{ width: "15%", textAlign: "right" }}>{temperature}°F</td>
+        <td
+          style={{ width: "15%", textAlign: "right" }}
+        >
+          {Math.round(temperature)}°F
+        </td>
         <td style={{ width: "5%", textAlign: "center" }}>
           <ReactAnimatedWeather
             icon={icon.toUpperCase()}

@@ -19,6 +19,7 @@ export class Game extends Component {
       visitorDisplayName,
       gameTimeEastern,
       gameKey,
+      networkChannel
     } = this.props.game;
     const {
       roofType,
@@ -55,18 +56,21 @@ export class Game extends Component {
               </tbody>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={gameKey}>
-              <table style={{ width: "100%", backgroundColor: "#C9C9C9" }}>
+              <table style={{ width: "100%", backgroundColor: "#e3e3e3" }}>
                 <tbody>
                   <tr>
                     <td>
                       Location: {siteCity}, {siteState}
                     </td>
                     <td>
-                      Visibility: {visibility}
+                      TV: {networkChannel}
+                    </td>
+                    <td>
+                      Visibility: {visibility} miles
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <td colSpan={2}>
                       Stadium: {roofType}
                     </td>
                     <td>
