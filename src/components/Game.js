@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Forecast from "./Forecast";
 import PropTypes from "prop-types";
-import { Table, Card, Accordion } from "react-bootstrap";
+import { Table, Accordion } from "react-bootstrap";
 
 export class Game extends Component {
   state = {
@@ -18,7 +18,6 @@ export class Game extends Component {
       homeDisplayName,
       visitorDisplayName,
       gameTimeEastern,
-      gameDate,
       gameKey,
     } = this.props.game;
     const {
@@ -56,7 +55,7 @@ export class Game extends Component {
               </tbody>
             </Accordion.Toggle>
             <Accordion.Collapse eventKey={gameKey}>
-              <Table style={{ backgroundColor: "#C9C9C9" }}>
+              <table style={{ width: "100%", backgroundColor: "#C9C9C9" }}>
                 <tbody>
                   <tr>
                     <td>
@@ -71,11 +70,11 @@ export class Game extends Component {
                       Stadium: {roofType}
                     </td>
                     <td>
-                      Windspeed: {windSpeed}
+                      Windspeed: {windSpeed} mph
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </table>
             </Accordion.Collapse>
           </Accordion>
         </td>

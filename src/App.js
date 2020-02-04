@@ -182,7 +182,12 @@ class App extends Component {
       "14",
       "15",
       "16",
-      "17"
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22"
     ],
     selectedWeek: "1", //make this the current week
     scheduleByWeek: []
@@ -204,7 +209,7 @@ class App extends Component {
       selectedWeek: week,
       scheduleByWeek: [
         ...this.state.schedules.filter(
-          sched => sched.week.toString() === week && sched.seasonType === "REG"
+          sched => sched.week.toString() === week
         )
       ]
     });
@@ -218,7 +223,10 @@ class App extends Component {
             Week {this.state.selectedWeek}
           </Dropdown.Toggle>
 
-          <Dropdown.Menu>
+          <Dropdown.Menu style={{
+            height: "300px",
+            overflowY: 'scroll'
+          }}>
             {this.state.possibleWeeks.map(week => (
               <Dropdown.Item
                 onSelect={this.weekSelect}

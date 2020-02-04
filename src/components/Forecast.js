@@ -14,35 +14,28 @@ export class Forecast extends Component {
     }
   };
 
-  getCoords = ({ siteCity, siteState }) => {
-    // if (siteCity !== undefined && siteState !== undefined) {
-    //   axios
-    //     .get(
-    //       `https://us1.locationiq.com/v1/search.php?key=f3bb1afca12686&q=${siteCity}%20${siteState}&format=json`
-    //     )
-    //     .then(response => this.getForecast(response.data[0]))
-    //     .catch(err => console.log(err));
-    // } else if (siteCity !== undefined) {
-    //   axios
-    //     .get(
-    //       `https://us1.locationiq.com/v1/search.php?key=f3bb1afca12686&q=${siteCity}&format=json`
-    //     )
-    //     .then(response => this.getForecast(response.data[0]))
-    //     .catch(err => console.log(err));
-    // }
-    // console.log(siteCity, siteState);
-    // SITES.map(site => console.log(site));
+  componentDidMount() {
+    const { siteCity } = this.props.location.site;
+    const { gameTimeLocal } = this.props.location;
+    let gameDate = this.props.location.gameDate.split("/")
+    // reformat MM/DD/YYYY to YYYY-MM-DD
+    let date = `${gameDate[2]}-${gameDate[0]}-${gameDate[1]}`
+
+    this.getCoords({ siteCity, date, gameTimeLocal })
+  }
+
+  getCoords = ({ siteCity, date, gameTimeLocal }) => {
     const location = SITES.filter(site => site.city === siteCity);
 
-    this.getForecast(location[0]);
+    this.getForecast(location[0], date, gameTimeLocal);
   };
 
   // set up my own cors-anywhere heroku to not get throttled
-  getForecast = ({ latitude, longitude }) => {
+  getForecast = ({ latitude, longitude }, date, time) => {
     const proxyurl = "https://cors-anywhere-kw.herokuapp.com/";
     axios
       .get(
-        `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude}`
+        `${proxyurl}https://api.darksky.net/forecast/1512a2f8760252dca8cff32c45157989/${latitude},${longitude},${date}T${time}`
       )
       .then(res => {
         this.setState({ forecast: res.data });
@@ -51,20 +44,9 @@ export class Forecast extends Component {
       .catch(err => console.log(err));
   };
 
-  displayWeather = location => {
-    this.getCoords(location);
-  };
-
-  componentDidMount() {
-    const { siteCity, siteState } = this.props.location.site;
-    this.displayWeather({ siteCity, siteState });
-  }
-
   toCelsius(temp) {
     return parseInt((temp - 273.15) * 10) / 10 + "°C";
   }
-
-
 
   render() {
     let { temperature, summary, icon } = this.state.forecast.currently;
@@ -72,11 +54,11 @@ export class Forecast extends Component {
     return (
       <React.Fragment>
         <td style={{ width: "15%", textAlign: "right" }}>{temperature}°F</td>
-        <td style={{ width: "5%", textAlign: "left" }}>
+        <td style={{ width: "5%", textAlign: "center" }}>
           <ReactAnimatedWeather
             icon={icon.toUpperCase()}
             color={"#212529"}
-            size={32}
+            size={24}
             animate={true}
           />
         </td>

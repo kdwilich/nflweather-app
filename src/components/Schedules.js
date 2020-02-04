@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import Forecast from "./Forecast";
 import Game from "./Game";
 
 export class Schedules extends Component {
@@ -25,7 +24,7 @@ export class Schedules extends Component {
     schedules.sort(this.compare);
 
     return (
-      <table style={{ width: "100%" }}>
+      <table style={styles.container}>
         <tbody>
           {schedules.map(scheduledGame => {
             return (
@@ -42,6 +41,12 @@ export class Schedules extends Component {
         </tbody>
       </table>
     );
+  }
+}
+
+const styles = {
+  container: {
+    width: "100%",
   }
 }
 
