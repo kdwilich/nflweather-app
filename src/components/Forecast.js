@@ -18,7 +18,7 @@ export class Forecast extends Component {
     const { siteCity } = this.props.location.site;
     const { gameTimeLocal } = this.props.location;
     let gameDate = this.props.location.gameDate.split("/")
-    // reformat MM/DD/YYYY to YYYY-MM-DD
+    // reformats MM/DD/YYYY to YYYY-MM-DD
     let date = `${gameDate[2]}-${gameDate[0]}-${gameDate[1]}`
 
     this.getCoords({ siteCity, date, gameTimeLocal })
