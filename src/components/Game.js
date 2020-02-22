@@ -2,16 +2,18 @@ import React, { Component } from "react";
 import Forecast from "./Forecast";
 import PropTypes from "prop-types";
 import { Table, Accordion } from "react-bootstrap";
+import "./styles/game-tile.scss";
 
-export class Game extends Component {
+class Game extends Component {
   state = {
     game: [],
-    forecast: []
+    forecast: [],
+    showGameDetails: false
   };
 
-  setForecast = (forecast) => {
+  setForecast = forecast => {
     this.setState({ forecast: forecast.currently });
-  }
+  };
 
   render() {
     const {
@@ -21,72 +23,42 @@ export class Game extends Component {
       gameKey,
       networkChannel
     } = this.props.game;
-    const {
-      roofType,
-      siteCity,
-      siteState
-    } = this.props.game.site;
+    const { roofType, siteCity, siteState } = this.props.game.site;
     const { visibility, windSpeed } = this.state.forecast;
     return (
-      <tr>
-        <td>
-          <Accordion
-            defaultActiveKey="1"
-            key={gameKey}
-          >
-            <Accordion.Toggle
-              as={Table}
-              style={{ margin: 0 }}
-              eventKey={gameKey}
-            >
-              <tbody>
-                <tr>
-                  <td style={{ width: "10%", textAlign: "right" }}>
-                    {this.formatTime(gameTimeEastern, "central")}
-                  </td>
-                  <td style={{ width: "20%", textAlign: "right" }}>
-                    {homeDisplayName}
-                  </td>
-                  <td style={{ width: "10%", textAlign: "center" }}>VS</td>
-                  <td style={{ width: "20%", textAlign: "left" }}>
-                    {visitorDisplayName}
-                  </td>
-                  <Forecast location={this.props.game} setForecast={this.setForecast} />
-                </tr>
-              </tbody>
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey={gameKey}>
-              <table style={{ width: "100%", backgroundColor: "#e3e3e3" }}>
-                <tbody>
-                  <tr>
-                    <td>
-                      Location: {siteCity}, {siteState}
-                    </td>
-                    <td>
-                      TV: {networkChannel}
-                    </td>
-                    <td>
-                      Visibility: {visibility} miles
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colSpan={2}>
-                      Stadium: {roofType}
-                    </td>
-                    <td>
-                      Windspeed: {windSpeed} mph
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </Accordion.Collapse>
-          </Accordion>
-        </td>
-      </tr>
+      <div
+        className={`tile ${
+          this.state.showGameDetails ? "selected" : "default"
+        }`}
+        onClick={() =>
+          this.setState(prevState => ({
+            showGameDetails: !prevState.showGameDetails
+          }))
+        }
+      >
+        {this.state.showGameDetails ? (
+          <table style={{ width: "100%" }}>
+            <tbody>
+              <Forecast
+                location={this.props.game}
+                setForecast={this.setForecast}
+              />
+            </tbody>
+          </table>
+        ) : (
+          <React.Fragment>
+            <div className="header">
+              {siteState ? `${siteCity}, ${siteState}` : `${siteCity}`}
+            </div>
+            <div>{homeDisplayName}</div>
+            <div>{visitorDisplayName}</div>
+          </React.Fragment>
+        )}
+      </div>
     );
   }
 
-  formatTime(time, zone) {
+  formatTime = (time, zone) => {
     time = time.split(":");
     let hour = parseInt(time[0].substring(0, 2), 10);
     let timeOfDay;
@@ -109,7 +81,7 @@ export class Game extends Component {
     hour = ((hour + 11) % 12) + 1;
 
     return `${hour.toString()}:${time[1]} ${timeOfDay}`;
-  }
+  };
 }
 
 Game.propTypes = {

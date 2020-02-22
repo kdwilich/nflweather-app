@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Game from "./Game";
 import { Table } from "react-bootstrap";
+
 export class Schedules extends Component {
   state = {
     schedules: []
@@ -24,21 +25,18 @@ export class Schedules extends Component {
     schedules.sort(this.compare);
 
     return (
-      <Table style={styles.container} >
-        <tbody>
-          {schedules.map(scheduledGame => {
-            return (
-              <React.Fragment key={scheduledGame.gameKey}>
-                {scheduledGame.gameId % 100 === 0 && (
-                  <th>{scheduledGame.gameDate}</th>
-                )
-                }
-                <Game game={scheduledGame} key={scheduledGame.gameKey} />
-              </React.Fragment>
-            );
-          })}
-        </tbody>
-      </Table >
+      <div style={styles.container}>
+        {schedules.map(scheduledGame => {
+          return (
+            <React.Fragment key={scheduledGame.gameKey}>
+              {scheduledGame.gameId % 100 === 0 && (
+                <div style={styles.date}>{scheduledGame.gameDate}</div>
+              )}
+              <Game game={scheduledGame} />
+            </React.Fragment>
+          );
+        })}
+      </div>
     );
   }
 }
@@ -46,10 +44,11 @@ export class Schedules extends Component {
 const styles = {
   container: {
     width: "100%",
-    rules: "none",
-
-  }
-}
+    display: "flex",
+    flexWrap: "wrap"
+  },
+  date: { flexBasis: "100%", color: "#FFC68A" }
+};
 
 Schedules.propTypes = {
   schedules: PropTypes.array.isRequired

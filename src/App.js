@@ -192,7 +192,7 @@ class App extends Component {
       "Divisional Playoffs",
       "Conference Championships",
       "Pro Bowl",
-      "Super Bowl",
+      "Super Bowl"
     ],
     possibleSeasons: [
       "2019",
@@ -212,7 +212,7 @@ class App extends Component {
       "2005",
       "2004",
       "2003",
-      "2002",
+      "2002"
     ],
     selectedWeek: "Week 1", //make this the current week
     selectedSeason: "2019",
@@ -226,13 +226,15 @@ class App extends Component {
 
   getSchedule = () => {
     axios
-      .get(`https://www.nfl.com/feeds-rs/schedules/${this.state.selectedSeason}.json`)
+      .get(
+        `https://www.nfl.com/feeds-rs/schedules/${this.state.selectedSeason}.json`
+      )
       .then(response =>
         this.setState({ schedules: response.data.gameSchedules })
       )
       .then(() => this.weekSelect(this.state.selectedWeek))
       .catch(err => console.error(err));
-  }
+  };
 
   //TODO: set to current week based on current date
   // parseInt((new Date('2012.08.10').getTime() / 1000).toFixed(0))
@@ -240,9 +242,7 @@ class App extends Component {
     this.setState({
       selectedWeek: selectedWeek,
       scheduleByWeek: [
-        ...this.state.schedules.filter(
-          game => game.weekName === selectedWeek
-        )
+        ...this.state.schedules.filter(game => game.weekName === selectedWeek)
       ]
     });
   };
@@ -251,13 +251,13 @@ class App extends Component {
     this.setState({
       selectedSeason: selectedSeason
     });
-    this.getSchedule()
+    this.getSchedule();
   };
 
   render() {
     return (
-      <Container>
-        <ButtonToolbar>
+      <Container className="">
+        {/* <ButtonToolbar>
           <DropdownButton
             title={this.state.selectedSeason}
             variant="primary"
@@ -268,7 +268,8 @@ class App extends Component {
               style={{
                 height: "300px",
                 overflowY: "scroll"
-              }}>
+              }}
+            >
               {this.state.possibleSeasons.map(season => (
                 <Dropdown.Item
                   onSelect={this.seasonSelect}
@@ -290,7 +291,8 @@ class App extends Component {
               style={{
                 height: "300px",
                 overflowY: "scroll"
-              }}>
+              }}
+            >
               {this.state.possibleWeeks.map(week => (
                 <Dropdown.Item
                   onSelect={this.weekSelect}
@@ -302,12 +304,8 @@ class App extends Component {
               ))}
             </div>
           </DropdownButton>
-        </ButtonToolbar>
-        <Row className="justify-content-md-center">
-          <Col>
-            <Schedules schedules={this.state.scheduleByWeek} />
-          </Col>
-        </Row>
+        </ButtonToolbar> */}
+        <Schedules schedules={this.state.scheduleByWeek} />
       </Container>
     );
   }

@@ -17,11 +17,11 @@ export class Forecast extends Component {
   componentDidMount() {
     const { siteCity } = this.props.location.site;
     const { gameTimeLocal } = this.props.location;
-    let gameDate = this.props.location.gameDate.split("/")
+    let gameDate = this.props.location.gameDate.split("/");
     // reformats MM/DD/YYYY to YYYY-MM-DD
-    let date = `${gameDate[2]}-${gameDate[0]}-${gameDate[1]}`
+    let date = `${gameDate[2]}-${gameDate[0]}-${gameDate[1]}`;
 
-    this.getCoords({ siteCity, date, gameTimeLocal })
+    this.getCoords({ siteCity, date, gameTimeLocal });
   }
 
   getCoords = ({ siteCity, date, gameTimeLocal }) => {
@@ -54,24 +54,85 @@ export class Forecast extends Component {
   // }
 
   render() {
-    let { temperature, summary, icon } = this.state.forecast.currently;
+    let {
+      temperature,
+      apparentTemperature,
+      summary,
+      icon,
+      precipIntensity,
+      precipProbability,
+      visibility,
+      uvIndex,
+      windGust,
+      windSpeed,
+      humidity,
+      cloudCover
+    } = this.state.forecast.currently;
+
     icon = icon.replace(new RegExp("-", "g"), "_");
+    humidity = parseInt(humidity) * 100;
+    precipProbability = parseInt(precipProbability) * 100;
+    cloudCover = parseInt(cloudCover) * 100;
+    precipIntensity = Math.round(precipIntensity);
+    temperature = Math.round(temperature);
+    apparentTemperature = Math.round(apparentTemperature);
+
+    //add if indoors somewhere
+
+    let imperialUnits = true;
     return (
       <React.Fragment>
-        <td
-          style={{ width: "15%", textAlign: "right" }}
-        >
-          {Math.round(temperature)}°F
-        </td>
-        <td style={{ width: "5%", textAlign: "center" }}>
-          <ReactAnimatedWeather
-            icon={icon.toUpperCase()}
-            color={"#212529"}
-            size={24}
-            animate={true}
-          />
-        </td>
-        <td style={{ width: "15%", textAlign: "left" }}>{summary}</td>
+        <tr>
+          <td className="l featured" style={{ width: "33%" }}>
+            {summary}
+          </td>
+          <td className="c" style={{ width: "33%" }}>
+            <ReactAnimatedWeather
+              icon={icon.toUpperCase()}
+              color={"#fff"}
+              size={60}
+              animate={true}
+            />
+          </td>
+          <td className="r featured" style={{ width: "33%" }}>
+            {temperature} °{imperialUnits ? "F" : "C"}
+          </td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <td colSpan="2">Feels-Like</td>
+          <td className="r">
+            {apparentTemperature} °{imperialUnits ? "F" : "C"}
+          </td>
+        </tr>
+        <tr>
+          <td colSpan="2">Precip Prob</td>
+          <td className="r">{precipProbability}%</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Precip Rate</td>
+          <td className="r">{precipIntensity} in/hr</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Wind Speed</td>
+          <td className="r">{windSpeed} mph</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Wind Gust</td>
+          <td className="r">{windGust} mph</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Humidity</td>
+          <td className="r">{humidity}%</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Cloud Cover</td>
+          <td className="r">{cloudCover}%</td>
+        </tr>
+        <tr>
+          <td colSpan="2">Visibility</td>
+          <td className="r">{visibility} mi</td>
+        </tr>
       </React.Fragment>
     );
   }
