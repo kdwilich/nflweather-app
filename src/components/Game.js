@@ -21,15 +21,16 @@ class Game extends Component {
       visitorDisplayName,
       gameTimeEastern,
       gameKey,
-      networkChannel
+      networkChannel,
+
     } = this.props.game;
-    const { roofType, siteCity, siteState } = this.props.game.site;
+    const { roofType, siteCity, siteState, siteFullname } = this.props.game.site;
     const { visibility, windSpeed } = this.state.forecast;
     return (
       <div
         className={`tile ${
           this.state.showGameDetails ? "selected" : "default"
-        }`}
+          }`}
         onClick={() =>
           this.setState(prevState => ({
             showGameDetails: !prevState.showGameDetails
@@ -46,14 +47,17 @@ class Game extends Component {
             </tbody>
           </table>
         ) : (
-          <React.Fragment>
-            <div className="header">
-              {siteState ? `${siteCity}, ${siteState}` : `${siteCity}`}
-            </div>
-            <div>{homeDisplayName}</div>
-            <div>{visitorDisplayName}</div>
-          </React.Fragment>
-        )}
+            <React.Fragment>
+              <div>{visitorDisplayName}</div>
+              <div> @ </div>
+              <div>{homeDisplayName}</div>
+              <div></div>
+              <div className="header" align="center">
+                {this.props.game.site.siteFullname} in {siteState ? `${siteCity}, ${siteState}` : `${siteCity}`}
+              </div>
+
+            </React.Fragment>
+          )}
       </div>
     );
   }

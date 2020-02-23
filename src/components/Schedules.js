@@ -43,11 +43,14 @@ export class Schedules extends Component {
 
 const styles = {
   container: {
-    width: "100%",
+    width: "175%",
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    padding: 10,
+    marginLeft: - 250,
+    justifyContent: "Left",
   },
-  date: { flexBasis: "100%", color: "#FFC68A" }
+  date: { flexBasis: "100%", color: "#ffc107", fontSize: "20px" }
 };
 
 Schedules.propTypes = {
