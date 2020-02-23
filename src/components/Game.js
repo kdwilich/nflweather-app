@@ -24,7 +24,7 @@ class Game extends Component {
       networkChannel,
 
     } = this.props.game;
-    const { roofType, siteCity, siteState, siteFullname } = this.props.game.site;
+    const { roofType, siteCity, siteState, siteFullname, } = this.props.game.site;
     const { visibility, windSpeed } = this.state.forecast;
     return (
       <div
@@ -51,9 +51,9 @@ class Game extends Component {
               <div>{visitorDisplayName}</div>
               <div> @ </div>
               <div>{homeDisplayName}</div>
-              <div></div>
               <div className="header" align="center">
-                {this.props.game.site.siteFullname} in {siteState ? `${siteCity}, ${siteState}` : `${siteCity}`}
+                {siteFullname} <br></br>
+                ({roofType})
               </div>
 
             </React.Fragment>
