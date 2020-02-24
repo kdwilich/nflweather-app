@@ -38,7 +38,7 @@ class Game extends Component {
         }
       >
         {this.state.showGameDetails ? (
-          <table style={{ width: "100%" }}>
+          <table style={{ width: "100%", overflowY: "scroll" }}>
             <tbody>
               <Forecast
                 location={this.props.game}
@@ -57,7 +57,8 @@ class Game extends Component {
               </div>
 
             </React.Fragment>
-          )}
+          )
+        }
       </div>
     );
   }

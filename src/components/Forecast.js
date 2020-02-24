@@ -133,6 +133,10 @@ export class Forecast extends Component {
           <td colSpan="2">Visibility</td>
           <td className="r">{visibility} mi</td>
         </tr>
+        <tr>
+          <td colSpan="2">UV Index</td>
+          <td className="r">{uvIndex} mi</td>
+        </tr>
       </React.Fragment>
     );
   }
