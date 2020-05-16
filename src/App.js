@@ -195,6 +195,7 @@ class App extends Component {
       "Super Bowl"
     ],
     possibleSeasons: [
+      "2020",
       "2019",
       "2018",
       "2017",
@@ -215,7 +216,7 @@ class App extends Component {
       "2002"
     ],
     selectedWeek: "Week 1", //make this the current week
-    selectedSeason: "2019",
+    selectedSeason: "2020",
     scheduleByWeek: []
   };
 
@@ -243,24 +244,29 @@ class App extends Component {
       selectedWeek: selectedWeek,
       scheduleByWeek: [
         ...this.state.schedules.filter(game => game.weekName === selectedWeek)
+
       ]
+
     });
+
   };
 
   seasonSelect = selectedSeason => {
     this.setState({
-      selectedSeason: selectedSeason
+      selectedSeason: selectedSeason,
     });
     this.getSchedule();
+
+
   };
 
   render() {
     return (
       <Container className="">
-        {/* <ButtonToolbar>
+        {<ButtonToolbar>
           <DropdownButton
             title={this.state.selectedSeason}
-            variant="primary"
+            variant="warning"
             id="dropdown-season"
             style={{ padding: "15px" }}
           >
@@ -275,6 +281,7 @@ class App extends Component {
                   onSelect={this.seasonSelect}
                   eventKey={season}
                   key={season}
+
                 >
                   {season}
                 </Dropdown.Item>
@@ -283,7 +290,7 @@ class App extends Component {
           </DropdownButton>
           <DropdownButton
             title={this.state.selectedWeek}
-            variant="primary"
+            variant="warning"
             id="dropdown-week"
             style={{ padding: "15px" }}
           >
@@ -304,9 +311,9 @@ class App extends Component {
               ))}
             </div>
           </DropdownButton>
-        </ButtonToolbar> */}
+        </ButtonToolbar>}
         <Schedules schedules={this.state.scheduleByWeek} />
-      </Container>
+      </Container >
     );
   }
 }

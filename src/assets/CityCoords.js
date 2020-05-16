@@ -1,5 +1,23 @@
 const SITES = [
   {
+    city: "Las Vegas",
+    state: "NV",
+    longitude: "-115.183722",
+    latitude: "36.09075"
+  },
+  {
+    city: "Inglewood",
+    state: "CA",
+    longitude: "-118.3392",
+    latitude: "33.95345"
+  },
+  {
+    city: "Canton",
+    state: "OH",
+    longitude: "-81.377037",
+    latitude: "40.797390"
+  },
+  {
     city: "Canton",
     state: "OH",
     longitude: "-81.377037",
@@ -223,6 +241,7 @@ const SITES = [
     longitude: "-81.3790304",
     latitude: "28.5421109"
   },
+
 ];
 
 export default SITES;
