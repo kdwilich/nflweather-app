@@ -40,7 +40,7 @@ class App extends Component {
       .then(response => response.json())
       // .then(response => console.log(response))
       .then(response => this.setState({ forecast: response }))
-      .catch(function (error) {
+      .catch(function(error) {
         console.log("Request failed", error);
       });
   };
@@ -65,17 +65,17 @@ class App extends Component {
     visitorTeamAbbr,
     week
   }) => (
-      <div key={gameId}>
-        {seasonType === "REG" && week === 15 && (
-          <div>
-            {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at{" "}
-            {this.formatTime(gameTimeEastern, "central")}
-            <br />
+    <div key={gameId}>
+      {seasonType === "REG" && week === 15 && (
+        <div>
+          {homeTeamAbbr} vs {visitorTeamAbbr} on {gameDate} at{" "}
+          {this.formatTime(gameTimeEastern, "central")}
+          <br />
           &nbsp;
-          </div>
-        )}
-      </div>
-    );
+        </div>
+      )}
+    </div>
+  );
 
   renderStadiumLocations = ({ siteId, siteCity, siteState }) => (
     <div key={siteId}>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Forecast from "./Forecast";
 import PropTypes from "prop-types";
+import { Table, Accordion } from "react-bootstrap";
 import "./styles/game-tile.scss";
 
 class Game extends Component {
